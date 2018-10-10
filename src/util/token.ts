@@ -9,13 +9,13 @@ interface PubsubPerms {
   send?: string[];
 }
 
-export interface TokenPayload {
+export interface ExtensionTokenPayload {
   exp: number;
   user_id?: string;
-  opaque_user_id?: string;
+  opaque_user_id: string;
   channel_id?: string;
   role: string;
-  pubsub_perms?: PubsubPerms;
+  pubsub_perms: PubsubPerms;
 }
 
 export interface TokenSpec {
@@ -28,7 +28,7 @@ export interface TokenSpec {
 
 export function createSignedToken(tokenSpec: TokenSpec): string {
   const { channelId, opaqueUserId, role, secret, userId } = tokenSpec;
-  let pubsub_perms: PubsubPerms = {
+  const pubsub_perms: PubsubPerms = {
     listen: ['broadcast', 'global'],
   }
   if (role === 'broadcaster') {
@@ -38,7 +38,7 @@ export function createSignedToken(tokenSpec: TokenSpec): string {
     pubsub_perms.listen = ['*']
   }
 
-  const payload: TokenPayload = {
+  const payload: ExtensionTokenPayload = {
     exp: Math.floor((Date.now() + OneYearMS) / 1000),
     opaque_user_id: opaqueUserId || '',
     role,
@@ -54,8 +54,14 @@ export function createSignedToken(tokenSpec: TokenSpec): string {
   return sign(payload, new Buffer(secret, 'base64'), { algorithm: 'HS256' });
 }
 
+export interface ConfigurationTokenPayload {
+  exp: number;
+  role: string;
+  user_id: string;
+}
+
 export function createConfigurationToken(secret: string, userId: string): string {
-  const payload: TokenPayload = {
+  const payload: ConfigurationTokenPayload = {
     exp: Math.floor((Date.now() + OneDayMS) / 1000),
     role: 'external',
     user_id: userId,

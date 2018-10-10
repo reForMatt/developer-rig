@@ -1,9 +1,14 @@
 import { createExtensionObject, createExtensionToken, fetchUserExtensionManifest } from './extension';
 import { ExtensionManifest } from '../core/models/manifest';
 import { RigRole } from '../constants/rig';
-import { TokenPayload } from './token';
+import { ExtensionTokenPayload } from './token';
 import { verify } from 'jsonwebtoken';
 import { ViewerTypes } from '../constants/viewer-types';
+
+type TestTokenPayload = ExtensionTokenPayload & {
+  exp: number;
+  iat: number;
+};
 
 describe('extension', () => {
   const manifest: ExtensionManifest = {
@@ -161,54 +166,46 @@ describe('createExtensionToken', () => {
     user_id: channelId,
   };
 
+  function expectPayload(payload: TestTokenPayload, opaqueUserId: string, pubsubPerms: {}, role: string) {
+    expect(payload.exp).toBeGreaterThan(Date.now() / 1000);
+    expect(payload.opaque_user_id).toBe(opaqueUserId);
+    expect(payload.pubsub_perms).toEqual(pubsubPerms);
+    expect(payload.role).toBe(role);
+    expect(payload.iat).toBeLessThan(payload.exp);
+  }
+
   it('should create a token for logged-out users', () => {
     const token = createExtensionToken(ViewerTypes.LoggedOut, '', channelId, secret, ouid);
-    const payload = verify(token, Buffer.from(secret, 'base64')) as TokenPayload;
-
-    expect(payload.opaque_user_id).toBe(LOGGED_OUT_PAYLOAD.opaque_user_id);
-    expect(payload.role).toBe(LOGGED_OUT_PAYLOAD.role);
-    expect(payload.pubsub_perms.send).toBeUndefined();
-    expect(payload.pubsub_perms.listen).toEqual(['broadcast', 'global']);
+    const payload = verify(token, Buffer.from(secret, 'base64')) as TestTokenPayload;
+    expectPayload(payload, LOGGED_OUT_PAYLOAD.opaque_user_id, { listen: ['broadcast', 'global'] }, LOGGED_OUT_PAYLOAD.role);
+    expect(payload.user_id).toBeUndefined();
   });
 
   it('should create a token for unlinked logged-in users', () => {
     const token = createExtensionToken(ViewerTypes.LoggedIn, '', channelId, secret, ouid);
-    const payload = verify(token, Buffer.from(secret, 'base64')) as TokenPayload;
-
-    expect(payload.opaque_user_id).toBe(LOGGED_IN_UNLINKED_PAYLOAD.opaque_user_id);
-    expect(payload.role).toBe(LOGGED_IN_UNLINKED_PAYLOAD.role);
-    expect(payload.pubsub_perms.send).toBeUndefined();
-    expect(payload.pubsub_perms.listen).toEqual(['broadcast', 'global']);
+    const payload = verify(token, Buffer.from(secret, 'base64')) as TestTokenPayload;
+    expectPayload(payload, LOGGED_IN_UNLINKED_PAYLOAD.opaque_user_id, { listen: ['broadcast', 'global'] }, LOGGED_IN_UNLINKED_PAYLOAD.role);
+    expect(payload.user_id).toBeUndefined();
   });
 
   it('should create a token for linked logged-in users', () => {
     const token = createExtensionToken(ViewerTypes.LoggedIn, linkedUserId, channelId, secret, ouid);
-    const payload = verify(token, Buffer.from(secret, 'base64')) as TokenPayload;
-
-    expect(payload.opaque_user_id).toBe(LOGGED_IN_LINKED_PAYLOAD.opaque_user_id);
+    const payload = verify(token, Buffer.from(secret, 'base64')) as TestTokenPayload;
+    expectPayload(payload, LOGGED_IN_LINKED_PAYLOAD.opaque_user_id, { listen: ['broadcast', 'global'] }, LOGGED_IN_LINKED_PAYLOAD.role);
     expect(payload.user_id).toBe(LOGGED_IN_LINKED_PAYLOAD.user_id);
-    expect(payload.role).toBe(LOGGED_IN_LINKED_PAYLOAD.role);
-    expect(payload.pubsub_perms.send).toBeUndefined();
-    expect(payload.pubsub_perms.listen).toEqual(['broadcast', 'global']);
   });
 
   it('should create a token for broadcaster users', () => {
     const token = createExtensionToken(ViewerTypes.Broadcaster, '', channelId, secret, ouid);
-    const payload = verify(token, Buffer.from(secret, 'base64')) as TokenPayload;
-
-    expect(payload.opaque_user_id).toBe(BROADCASTER_PAYLOAD.opaque_user_id);
-    expect(payload.role).toBe(BROADCASTER_PAYLOAD.role);
+    const payload = verify(token, Buffer.from(secret, 'base64')) as TestTokenPayload;
+    expectPayload(payload, BROADCASTER_PAYLOAD.opaque_user_id, { listen: ['broadcast', 'global'], send: ['broadcast'] }, BROADCASTER_PAYLOAD.role);
     expect(payload.user_id).toBe(BROADCASTER_PAYLOAD.user_id)
-    expect(payload.pubsub_perms.send).toEqual(['broadcast']);
-    expect(payload.pubsub_perms.listen).toEqual(['broadcast', 'global']);
   });
 
   it('should create a token for the rig', () => {
     const token = createExtensionToken(RigRole, '', channelId, secret, ouid);
-    const payload = verify(token, Buffer.from(secret, 'base64')) as TokenPayload;
-
-    expect(payload.role).toBe(RigRole);
-    expect(payload.pubsub_perms.send).toEqual(['*']);
-    expect(payload.pubsub_perms.listen).toEqual(['*']);
+    const payload = verify(token, Buffer.from(secret, 'base64')) as TestTokenPayload;
+    expectPayload(payload, `ARIG${ouid}`, { listen: ['*'], send: ['*'] }, RigRole);
+    expect(payload.user_id).toBeUndefined();
   });
 });
