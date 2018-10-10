@@ -104,7 +104,6 @@ export class ExtensionView extends React.Component<Props, State> {
       case ExtensionAnchor.Component:
         view = (
           <ExtensionComponentView
-            key={`ExtensionComponentView${JSON.stringify(this.props.configuration)}`}
             bindIframeToParent={this.bindIframeToParent}
             channelId={this.props.channelId}
             className="view"
@@ -121,7 +120,6 @@ export class ExtensionView extends React.Component<Props, State> {
       case ExtensionViewType.Mobile:
         view = (
           <ExtensionMobileView
-            key={`ExtensionMobileView${JSON.stringify(this.props.configuration)}`}
             bindIframeToParent={this.bindIframeToParent}
             channelId={this.props.channelId}
             className="view"
@@ -140,7 +138,6 @@ export class ExtensionView extends React.Component<Props, State> {
         view = (
           <div className="view nono_zone" style={extensionProps.viewStyles}>
             <ExtensionFrame
-              key={`ExtensionFrame${JSON.stringify(this.props.configuration)}`}
               bindIframeToParent={this.bindIframeToParent}
               channelId={this.props.channelId}
               className="view"
@@ -160,7 +157,6 @@ export class ExtensionView extends React.Component<Props, State> {
         view = (
           <div className="view" style={extensionProps.viewStyles}>
             <ExtensionFrame
-              key={`ExtensionFrame${JSON.stringify(this.props.configuration)}`}
               bindIframeToParent={this.bindIframeToParent}
               channelId={this.props.channelId}
               className="view"

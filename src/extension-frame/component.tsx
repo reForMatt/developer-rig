@@ -21,12 +21,6 @@ export interface Props {
 export class ExtensionFrame extends React.Component<Props> {
   public iframe: HTMLIFrameElement;
 
-  public componentDidMount() {
-    if (this.iframe) {
-      this.iframe.onload = this.extensionFrameInit;
-    }
-  }
-
   public render() {
     return (
       <iframe
@@ -42,6 +36,9 @@ export class ExtensionFrame extends React.Component<Props> {
   private bindIframeRef = (iframe: HTMLIFrameElement) => {
     this.iframe = iframe;
     this.props.bindIframeToParent(iframe);
+    if (this.iframe) {
+      this.iframe.onload = this.extensionFrameInit;
+    }
   }
 
   public extensionFrameInit = () => {

@@ -358,7 +358,7 @@ ShallowWrapper {
       },
       Object {
         "instance": null,
-        "key": "ExtensionComponentView{}",
+        "key": undefined,
         "nodeType": "class",
         "props": Object {
           "bindIframeToParent": [Function],
@@ -700,7 +700,7 @@ ShallowWrapper {
         },
         Object {
           "instance": null,
-          "key": "ExtensionComponentView{}",
+          "key": undefined,
           "nodeType": "class",
           "props": Object {
             "bindIframeToParent": [Function],
@@ -1212,7 +1212,7 @@ ShallowWrapper {
         "ref": null,
         "rendered": Object {
           "instance": null,
-          "key": "ExtensionFrame{}",
+          "key": undefined,
           "nodeType": "class",
           "props": Object {
             "bindIframeToParent": [Function],
@@ -1609,7 +1609,7 @@ ShallowWrapper {
           "ref": null,
           "rendered": Object {
             "instance": null,
-            "key": "ExtensionFrame{}",
+            "key": undefined,
             "nodeType": "class",
             "props": Object {
               "bindIframeToParent": [Function],
@@ -2114,7 +2114,7 @@ ShallowWrapper {
         "ref": null,
         "rendered": Object {
           "instance": null,
-          "key": "ExtensionFrame{}",
+          "key": undefined,
           "nodeType": "class",
           "props": Object {
             "bindIframeToParent": [Function],
@@ -2508,7 +2508,7 @@ ShallowWrapper {
           "ref": null,
           "rendered": Object {
             "instance": null,
-            "key": "ExtensionFrame{}",
+            "key": undefined,
             "nodeType": "class",
             "props": Object {
               "bindIframeToParent": [Function],
@@ -2968,7 +2968,7 @@ ShallowWrapper {
         "ref": null,
         "rendered": Object {
           "instance": null,
-          "key": "ExtensionFrame{}",
+          "key": undefined,
           "nodeType": "class",
           "props": Object {
             "bindIframeToParent": [Function],
@@ -3317,7 +3317,7 @@ ShallowWrapper {
           "ref": null,
           "rendered": Object {
             "instance": null,
-            "key": "ExtensionFrame{}",
+            "key": undefined,
             "nodeType": "class",
             "props": Object {
               "bindIframeToParent": [Function],
@@ -3753,7 +3753,7 @@ ShallowWrapper {
       },
       Object {
         "instance": null,
-        "key": "ExtensionMobileView{}",
+        "key": undefined,
         "nodeType": "class",
         "props": Object {
           "bindIframeToParent": [Function],
@@ -4097,7 +4097,7 @@ ShallowWrapper {
         },
         Object {
           "instance": null,
-          "key": "ExtensionMobileView{}",
+          "key": undefined,
           "nodeType": "class",
           "props": Object {
             "bindIframeToParent": [Function],
@@ -4607,7 +4607,7 @@ ShallowWrapper {
         "ref": null,
         "rendered": Object {
           "instance": null,
-          "key": "ExtensionFrame{}",
+          "key": undefined,
           "nodeType": "class",
           "props": Object {
             "bindIframeToParent": [Function],
@@ -5001,7 +5001,7 @@ ShallowWrapper {
           "ref": null,
           "rendered": Object {
             "instance": null,
-            "key": "ExtensionFrame{}",
+            "key": undefined,
             "nodeType": "class",
             "props": Object {
               "bindIframeToParent": [Function],
@@ -5509,7 +5509,7 @@ ShallowWrapper {
         "ref": null,
         "rendered": Object {
           "instance": null,
-          "key": "ExtensionFrame{}",
+          "key": undefined,
           "nodeType": "class",
           "props": Object {
             "bindIframeToParent": [Function],
@@ -5906,7 +5906,7 @@ ShallowWrapper {
           "ref": null,
           "rendered": Object {
             "instance": null,
-            "key": "ExtensionFrame{}",
+            "key": undefined,
             "nodeType": "class",
             "props": Object {
               "bindIframeToParent": [Function],
@@ -6414,7 +6414,7 @@ ShallowWrapper {
         "ref": null,
         "rendered": Object {
           "instance": null,
-          "key": "ExtensionFrame{}",
+          "key": undefined,
           "nodeType": "class",
           "props": Object {
             "bindIframeToParent": [Function],
@@ -6811,7 +6811,7 @@ ShallowWrapper {
           "ref": null,
           "rendered": Object {
             "instance": null,
-            "key": "ExtensionFrame{}",
+            "key": undefined,
             "nodeType": "class",
             "props": Object {
               "bindIframeToParent": [Function],
@@ -7316,7 +7316,7 @@ ShallowWrapper {
         "ref": null,
         "rendered": Object {
           "instance": null,
-          "key": "ExtensionFrame{}",
+          "key": undefined,
           "nodeType": "class",
           "props": Object {
             "bindIframeToParent": [Function],
@@ -7710,7 +7710,7 @@ ShallowWrapper {
           "ref": null,
           "rendered": Object {
             "instance": null,
-            "key": "ExtensionFrame{}",
+            "key": undefined,
             "nodeType": "class",
             "props": Object {
               "bindIframeToParent": [Function],
@@ -8215,7 +8215,7 @@ ShallowWrapper {
         "ref": null,
         "rendered": Object {
           "instance": null,
-          "key": "ExtensionFrame{}",
+          "key": undefined,
           "nodeType": "class",
           "props": Object {
             "bindIframeToParent": [Function],
@@ -8609,7 +8609,7 @@ ShallowWrapper {
           "ref": null,
           "rendered": Object {
             "instance": null,
-            "key": "ExtensionFrame{}",
+            "key": undefined,
             "nodeType": "class",
             "props": Object {
               "bindIframeToParent": [Function],
@@ -9117,7 +9117,7 @@ ShallowWrapper {
         "ref": null,
         "rendered": Object {
           "instance": null,
-          "key": "ExtensionFrame{}",
+          "key": undefined,
           "nodeType": "class",
           "props": Object {
             "bindIframeToParent": [Function],
@@ -9514,7 +9514,7 @@ ShallowWrapper {
           "ref": null,
           "rendered": Object {
             "instance": null,
-            "key": "ExtensionFrame{}",
+            "key": undefined,
             "nodeType": "class",
             "props": Object {
               "bindIframeToParent": [Function],
@@ -10022,7 +10022,7 @@ ShallowWrapper {
         "ref": null,
         "rendered": Object {
           "instance": null,
-          "key": "ExtensionFrame{}",
+          "key": undefined,
           "nodeType": "class",
           "props": Object {
             "bindIframeToParent": [Function],
@@ -10419,7 +10419,7 @@ ShallowWrapper {
           "ref": null,
           "rendered": Object {
             "instance": null,
-            "key": "ExtensionFrame{}",
+            "key": undefined,
             "nodeType": "class",
             "props": Object {
               "bindIframeToParent": [Function],
@@ -10924,7 +10924,7 @@ ShallowWrapper {
         "ref": null,
         "rendered": Object {
           "instance": null,
-          "key": "ExtensionFrame{}",
+          "key": undefined,
           "nodeType": "class",
           "props": Object {
             "bindIframeToParent": [Function],
@@ -11318,7 +11318,7 @@ ShallowWrapper {
           "ref": null,
           "rendered": Object {
             "instance": null,
-            "key": "ExtensionFrame{}",
+            "key": undefined,
             "nodeType": "class",
             "props": Object {
               "bindIframeToParent": [Function],
@@ -11778,7 +11778,7 @@ ShallowWrapper {
         "ref": null,
         "rendered": Object {
           "instance": null,
-          "key": "ExtensionFrame{}",
+          "key": undefined,
           "nodeType": "class",
           "props": Object {
             "bindIframeToParent": [Function],
@@ -12127,7 +12127,7 @@ ShallowWrapper {
           "ref": null,
           "rendered": Object {
             "instance": null,
-            "key": "ExtensionFrame{}",
+            "key": undefined,
             "nodeType": "class",
             "props": Object {
               "bindIframeToParent": [Function],
