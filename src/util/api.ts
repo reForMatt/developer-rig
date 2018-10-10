@@ -23,6 +23,7 @@ class Api {
   public async fetch<T>(method: 'GET' | 'POST', path: string, message4xx: string, headers: HeadersInit, body?: any): Promise<T> {
     const overridableHeaders: HeadersInit = {
       Accept: 'application/vnd.twitchtv.v5+json; charset=UTF-8',
+      'X-Requested-With': 'developer-rig; 0.6.0',
     };
     if (body) {
       overridableHeaders['Content-Type'] = 'application/json; charset=UTF-8';

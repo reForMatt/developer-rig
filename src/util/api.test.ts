@@ -196,6 +196,7 @@ describe('api', () => {
       headers: {
         Accept: 'application/vnd.twitchtv.v5+json; charset=UTF-8',
         'Content-Type': 'application/json; charset=UTF-8',
+        'X-Requested-With': 'developer-rig; 0.6.0',
       },
       method: 'POST',
     });
@@ -213,6 +214,7 @@ describe('api', () => {
       headers: {
         Accept: 'application/vnd.twitchtv.v5+json; charset=UTF-8',
         'Content-Type': 'application/json; charset=UTF-8',
+        'X-Requested-With': 'developer-rig; 0.6.0',
       },
       method: 'POST',
     });
