@@ -1,15 +1,19 @@
 import { Product } from '../core/models/product';
 import {
   createProject,
+  fetchChannelConfigurationSegments,
   fetchExamples,
   fetchExtensionManifest,
-  fetchUser,
-  fetchProducts,
+  fetchGlobalConfigurationSegment,
+  fetchHostingStatus,
   fetchNewRelease,
+  fetchProducts,
+  fetchUser,
   hostFrontend,
   saveProduct,
-  startFrontend,
   startBackend,
+  startFrontend,
+  stopHosting,
 } from './api';
 import {
   mockFetchError,
@@ -47,12 +51,40 @@ describe('api', () => {
         expect(ex.message).toEqual('500 error');
       }
     });
+
+    it('throws an exception on failed fetch', async function() {
+      globalAny.fetch = jest.fn().mockImplementation(mockFetchError);
+      try {
+        await fetchUser(token);
+      } catch (ex) {
+        expect(ex).toEqual('Fake error');
+      }
+    });
   });
 
   describe('createProject', () => {
     it('succeeds', async function() {
       globalAny.fetch = jest.fn().mockImplementation(mockEmptyResponse);
       await createProject('projectFolderPath', 'codeGenerationOption', 0);
+      expect(globalAny.fetch).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('fetchChannelConfigurationSegments', () => {
+    it('succeeds', async function() {
+      globalAny.fetch = jest.fn().mockImplementation(mockEmptyResponse);
+      await fetchChannelConfigurationSegments('clientId', 'userId', 'channelId', 'secret');
+      expect(globalAny.fetch).toHaveBeenCalledTimes(1);
+    });
+
+    it('returns broadcaster and developer', async function() {
+      globalAny.fetch = jest.fn().mockImplementation(() => Promise.resolve({
+        json: () => ({
+          'broadcaster:channelId': {},
+          'developer:channelId': {},
+        })
+      }));
+      await fetchChannelConfigurationSegments('clientId', 'userId', 'channelId', 'secret');
       expect(globalAny.fetch).toHaveBeenCalledTimes(1);
     });
   });
@@ -83,6 +115,22 @@ describe('api', () => {
     });
   });
 
+  describe('fetchGlobalConfigurationSegment', () => {
+    it('succeeds', async function() {
+      globalAny.fetch = jest.fn().mockImplementation(mockEmptyResponse);
+      await fetchGlobalConfigurationSegment('clientId', 'userId', 'secret');
+      expect(globalAny.fetch).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('fetchHostingStatus', () => {
+    it('succeeds', async function() {
+      globalAny.fetch = jest.fn().mockImplementation(mockEmptyResponse);
+      await fetchHostingStatus();
+      expect(globalAny.fetch).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe('fetchUser', () => {
     beforeEach(() => {
       globalAny.fetch = jest.fn().mockImplementation(mockFetchForUserInfo);
@@ -93,17 +141,6 @@ describe('api', () => {
       expect(data).toBeDefined();
     });
 
-    it('on error should fire', async function() {
-      expect.assertions(1);
-
-      globalAny.fetch = jest.fn().mockImplementation(mockFetchError);
-      try {
-        await fetchUser(token);
-      } catch (error) {
-        expect(error).toEqual('Fake error');
-      }
-    });
-
     it('throws an exception on invalid response', async function() {
       globalAny.fetch = jest.fn().mockImplementation(mockEmptyResponse);
       expect.assertions(1);
@@ -112,6 +149,12 @@ describe('api', () => {
       } catch (ex) {
         expect(ex.message).toEqual(`Invalid server response for access token ${token}`);
       }
+    });
+
+    it('returns null if user not found', async function() {
+      globalAny.fetch = jest.fn().mockImplementation(() => Promise.resolve({ json: () => [] }));
+      const data = await fetchUser(token, '-');
+      expect(data).toBe(null);
     });
   });
 
@@ -171,13 +214,6 @@ describe('api', () => {
         expect(error.message).toEqual('Cannot get GitHub developer rig latest release');
       })
     });
-
-    it('throws an exception on failed fetch', async function() {
-      globalAny.fetch = jest.fn().mockImplementation(mockFetchError);
-      fetchNewRelease().catch((error) => {
-        expect(error).toEqual('Fake error');
-      });
-    });
   });
 
   describe('hostFrontend', () => {
@@ -217,6 +253,14 @@ describe('api', () => {
         'X-Requested-With': 'developer-rig; 0.6.0',
       },
       method: 'POST',
+    });
+  });
+
+  describe('stopHosting', () => {
+    it('succeeds', async function() {
+      globalAny.fetch = jest.fn().mockImplementation(mockEmptyResponse);
+      await stopHosting();
+      expect(globalAny.fetch).toHaveBeenCalledTimes(1);
     });
   });
 });
